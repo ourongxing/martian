@@ -1,149 +1,144 @@
 // From https://github.com/syntax-tree/mdast
 
-import type {Node} from 'unist';
+import type { Node } from "unist"
 
 export interface Parent {
-  children: MdastContent[];
+  children: MdastContent[]
 }
 
 export interface Literal {
-  value: string;
+  value: string
 }
 
 export interface Root extends Parent {
-  type: 'root';
-  children: FlowContent[];
+  type: "root"
+  children: FlowContent[]
 }
 
 export interface Paragraph extends Parent {
-  type: 'paragraph';
-  children: PhrasingContent[];
+  type: "paragraph"
+  children: PhrasingContent[]
 }
 
 export interface Heading extends Parent {
-  type: 'heading';
-  depth: 1 | 2 | 3 | 4 | 5 | 6;
-  children: PhrasingContent[];
+  type: "heading"
+  depth: 1 | 2 | 3 | 4 | 5 | 6
+  children: PhrasingContent[]
 }
 
 export interface ThematicBreak extends Node {
-  type: 'thematicBreak';
+  type: "thematicBreak"
 }
 
 export interface Blockquote extends Parent {
-  type: 'blockquote';
-  children: FlowContent[];
+  type: "blockquote"
+  children: FlowContent[]
 }
 
 export interface List extends Parent {
-  type: 'list';
-  ordered?: boolean;
-  start?: number;
-  spread?: boolean;
-  children: ListContent[];
+  type: "list"
+  ordered?: boolean
+  start?: number
+  spread?: boolean
+  children: ListContent[]
 }
 
 export interface ListItem extends Parent {
-  type: 'listitem';
-  checked?: boolean | undefined | null;
-  spread?: boolean;
-  children: FlowContent[];
+  type: "listitem"
+  checked?: boolean | undefined | null
+  spread?: boolean
+  children: FlowContent[]
 }
 
 export interface HTML extends Literal {
-  type: 'html';
+  type: "html"
 }
 
 export interface Code extends Literal {
-  type: 'code';
-  lang?: string;
-  meta?: string;
+  type: "code"
+  lang?: string
+  meta?: string
 }
 
 export interface Math extends Literal {
-  type: 'math';
+  type: "math"
 }
 
 export interface Definition extends Node {
-  type: 'definition';
+  type: "definition"
 }
 
 export interface Text extends Literal {
-  type: 'text';
+  type: "text"
 }
 
 export interface Emphasis extends Parent {
-  type: 'emphasis';
-  children: PhrasingContent[];
+  type: "emphasis"
+  children: PhrasingContent[]
 }
 
 export interface Strong extends Parent {
-  type: 'strong';
-  children: PhrasingContent[];
+  type: "strong"
+  children: PhrasingContent[]
 }
 
 export interface Delete extends Parent {
-  type: 'delete';
-  children: PhrasingContent[];
+  type: "delete"
+  children: PhrasingContent[]
 }
 
 export interface InlineCode extends Literal {
-  type: 'inlineCode';
+  type: "inlineCode"
 }
 
 export interface InlineMath extends Literal {
-  type: 'inlineMath';
+  type: "inlineMath"
 }
 
 export interface Break extends Node {
-  type: 'break';
+  type: "break"
 }
 
 export interface Link extends Parent, Resource {
-  type: 'link';
-  children: StaticPhrasingContent[];
+  type: "link"
+  children: StaticPhrasingContent[]
 }
 
 export interface Image extends Resource {
-  type: 'image';
+  type: "image"
 }
 
 export interface LinkReference extends Parent {
-  type: 'linkReference';
-  children: StaticPhrasingContent[];
+  type: "linkReference"
+  children: StaticPhrasingContent[]
 }
 
 export interface ImageReference extends Node {
-  type: 'imageReference';
+  type: "imageReference"
 }
 
 export interface Resource {
-  url: string;
-  title?: string;
+  url: string
+  title?: string
 }
 
 export interface Table extends Parent {
-  type: 'table';
-  align?: ('left' | 'right' | 'center')[];
-  children: TableContent[];
+  type: "table"
+  align?: ("left" | "right" | "center")[]
+  children: TableContent[]
 }
 
 export interface TableRow extends Parent {
-  type: 'tableRow';
-  children: RowContent[];
+  type: "tableRow"
+  children: RowContent[]
 }
 
 export interface TableCell extends Parent {
-  type: 'tableCell';
-  children: PhrasingContent[];
+  type: "tableCell"
+  children: PhrasingContent[]
 }
 
-export type MdastContent =
-  | FlowContent
-  | ListContent
-  | PhrasingContent
-  | TableContent
-  | RowContent;
+export type MdastContent = FlowContent | ListContent | PhrasingContent | TableContent | RowContent
 
 export type FlowContent =
   | Blockquote
@@ -156,13 +151,13 @@ export type FlowContent =
   | ThematicBreak
   | Content
   | Table
-  | Math;
+  | Math
 
-export type Content = Definition | Paragraph;
+export type Content = Definition | Paragraph
 
-export type ListContent = ListItem;
+export type ListContent = ListItem
 
-export type PhrasingContent = Link | LinkReference | StaticPhrasingContent;
+export type PhrasingContent = Link | LinkReference | StaticPhrasingContent
 
 export type StaticPhrasingContent =
   | Image
@@ -174,8 +169,8 @@ export type StaticPhrasingContent =
   | Strong
   | Text
   | Delete
-  | InlineMath;
+  | InlineMath
 
-export type TableContent = TableRow;
+export type TableContent = TableRow
 
-export type RowContent = TableCell;
+export type RowContent = TableCell
