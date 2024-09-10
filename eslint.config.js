@@ -1,2 +1,3 @@
-import {ourongxing} from "@ourongxing/eslint-config"
+import { ourongxing } from "@ourongxing/eslint-config"
+
 export default ourongxing()

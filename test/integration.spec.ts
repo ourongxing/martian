@@ -1,8 +1,8 @@
+import fs from "node:fs"
+import { describe, expect, it, vi } from "vitest"
 import { markdownToBlocks, markdownToRichText } from "../src"
 import * as notion from "../src/notion"
-import fs from "fs"
 import { LIMITS } from "../src/notion"
-import { describe, expect, it, vi } from "vitest"
 
 describe("markdown converter", () => {
   describe("markdownToBlocks", () => {
@@ -18,11 +18,11 @@ hello _world_
       const expected = [
         notion.paragraph([
           notion.richText("hello "),
-          notion.richText("world", { annotations: { italic: true } })
+          notion.richText("world", { annotations: { italic: true } }),
         ]),
         notion.divider(),
         notion.headingTwo([notion.richText("heading2")]),
-        notion.toDo(true, [notion.richText("todo")])
+        notion.toDo(true, [notion.richText("todo")]),
       ]
 
       expect(actual).toStrictEqual(expected)
@@ -39,7 +39,7 @@ const hello = "hello";
 
       const expected = [
         notion.headingTwo([notion.richText("Code")]),
-        notion.code([notion.richText('const hello = "hello";')], "plain text")
+        notion.code([notion.richText("const hello = \"hello\";")], "plain text"),
       ]
 
       expect(actual).toStrictEqual(expected)
@@ -56,7 +56,7 @@ const hello = "hello";
 
       const expected = [
         notion.headingTwo([notion.richText("Code")]),
-        notion.code([notion.richText('const hello = "hello";')], "webassembly")
+        notion.code([notion.richText("const hello = \"hello\";")], "webassembly"),
       ]
 
       expect(actual).toStrictEqual(expected)
@@ -73,7 +73,7 @@ const hello = "hello";
 
       const expected = [
         notion.headingTwo([notion.richText("Code")]),
-        notion.code([notion.richText('const hello = "hello";')], "typescript")
+        notion.code([notion.richText("const hello = \"hello\";")], "typescript"),
       ]
 
       expect(actual).toStrictEqual(expected)
@@ -89,7 +89,7 @@ const hello = "hello";
         notion.blockquote([], [notion.paragraph([notion.richText("Quote")])]),
         notion.paragraph([notion.richText("Paragraph")]),
         notion.image("https://url.com/image.jpg"),
-        notion.table_of_contents()
+        notion.table_of_contents(),
       ]
 
       expect(actual).toStrictEqual(expected)
@@ -104,7 +104,7 @@ const hello = "hello";
         notion.divider(),
         notion.paragraph([notion.richText("Divider")]),
         notion.divider(),
-        notion.paragraph([notion.richText("END")])
+        notion.paragraph([notion.richText("END")]),
       ]
 
       expect(actual).toStrictEqual(expected)
@@ -114,8 +114,8 @@ const hello = "hello";
       const text = fs.readFileSync("test/fixtures/large-item.md").toString()
       const actual = markdownToBlocks(text)
 
-      const textArray =
-        actual[1].type === "paragraph" ? actual[1].paragraph.rich_text : { length: -1 }
+      const textArray
+        = actual[1].type === "paragraph" ? actual[1].paragraph.rich_text : { length: -1 }
 
       expect(textArray.length).toStrictEqual(9)
     })
@@ -129,9 +129,9 @@ const hello = "hello";
         notion.bulletedListItem(
           [notion.richText("Item 1")],
           // @ts-expect-error This problem is being addressed in issue #15 (https://github.com/tryfabric/martian/issues/15)
-          [notion.bulletedListItem([notion.richText("Sub Item 1")])]
+          [notion.bulletedListItem([notion.richText("Sub Item 1")])],
         ),
-        notion.bulletedListItem([notion.richText("Item 2")])
+        notion.bulletedListItem([notion.richText("Item 2")]),
       ]
 
       expect(actual).toStrictEqual(expected)
@@ -146,13 +146,13 @@ const hello = "hello";
           [
             notion.tableRow([
               [notion.richText("First Header")],
-              [notion.richText("Second Header")]
+              [notion.richText("Second Header")],
             ]),
             notion.tableRow([[notion.richText("Content Cell")], [notion.richText("Content Cell")]]),
-            notion.tableRow([[notion.richText("Content Cell")], [notion.richText("Content Cell")]])
+            notion.tableRow([[notion.richText("Content Cell")], [notion.richText("Content Cell")]]),
           ],
-          2
-        )
+          2,
+        ),
       ]
 
       expect(actual).toStrictEqual(expected)
@@ -166,11 +166,11 @@ const hello = "hello";
         notion.headingOne([notion.richText("Images")]),
         notion.paragraph([
           notion.richText("This is an image in a paragraph "),
-          notion.richText(", which isnt supported in Notion.")
+          notion.richText(", which isnt supported in Notion."),
         ]),
         notion.image("https://image.com/url.jpg"),
         notion.image("https://image.com/paragraph.jpg"),
-        notion.paragraph([notion.richText("https://image.com/blah")])
+        notion.paragraph([notion.richText("https://image.com/blah")]),
       ]
 
       expect(actual).toStrictEqual(expected)
@@ -184,11 +184,11 @@ const hello = "hello";
         notion.headingOne([notion.richText("Images")]),
         notion.paragraph([
           notion.richText("This is an image in a paragraph "),
-          notion.richText(", which isnt supported in Notion.")
+          notion.richText(", which isnt supported in Notion."),
         ]),
         notion.image("https://image.com/url.jpg"),
         notion.image("https://image.com/paragraph.jpg"),
-        notion.image("https://image.com/blah")
+        notion.image("https://image.com/blah"),
       ]
 
       expect(actual).toStrictEqual(expected)
@@ -204,9 +204,9 @@ const hello = "hello";
           notion.richText("L", { type: "equation" }),
           notion.richText(") can be determined by Lift Coefficient ("),
           notion.richText("C_L", { type: "equation" }),
-          notion.richText(") like the following\nequation.")
+          notion.richText(") like the following\nequation."),
         ]),
-        notion.equation("L = \\frac{1}{2} \\rho v^2 S C_L\\\\\ntest")
+        notion.equation("L = \\frac{1}{2} \\rho v^2 S C_L\\\\\ntest"),
       ]
 
       expect(actual).toStrictEqual(expected)
@@ -222,14 +222,14 @@ const hello = "hello";
         notion.richText("hello "),
         notion.richText("url", {
           annotations: { italic: true },
-          url: "https://example.com"
-        })
+          url: "https://example.com",
+        }),
       ]
 
       expect(actual).toStrictEqual(expected)
     })
 
-    it('should convert markdown with invalid link like "#title2" to rich text without link', () => {
+    it("should convert markdown with invalid link like \"#title2\" to rich text without link", () => {
       const text = "hello [url](#head)"
       const actual = markdownToRichText(text)
 
@@ -244,21 +244,21 @@ const hello = "hello";
       const expected = [
         notion.richText("hello"),
         notion.richText("url", {
-          url: "http://google.com"
-        })
+          url: "http://google.com",
+        }),
       ]
 
       expect(actual).toStrictEqual(expected)
     })
 
     it("should truncate items when options.notionLimits.truncate = true", () => {
-      const text = Array(LIMITS.RICH_TEXT_ARRAYS + 10)
+      const text = Array.from({ length: LIMITS.RICH_TEXT_ARRAYS + 10 })
         .fill("a *a* ")
         .join("")
 
       const actual = {
         default: markdownToRichText(text),
-        explicit: markdownToRichText(text, { notionLimits: { truncate: true } })
+        explicit: markdownToRichText(text, { notionLimits: { truncate: true } }),
       }
 
       expect(actual.default.length).toBe(LIMITS.RICH_TEXT_ARRAYS)
@@ -266,25 +266,25 @@ const hello = "hello";
     })
 
     it("should not truncate items when options.notionLimits.truncate = false", () => {
-      const text = Array(LIMITS.RICH_TEXT_ARRAYS + 10)
+      const text = Array.from({ length: LIMITS.RICH_TEXT_ARRAYS + 10 })
         .fill("a *a* ")
         .join("")
 
       const actual = markdownToRichText(text, {
-        notionLimits: { truncate: false }
+        notionLimits: { truncate: false },
       })
 
       expect(actual.length).toBeGreaterThan(LIMITS.RICH_TEXT_ARRAYS)
     })
 
     it("should call the callback when options.notionLimits.onError is defined", () => {
-      const text = Array(LIMITS.RICH_TEXT_ARRAYS + 10)
+      const text = Array.from({ length: LIMITS.RICH_TEXT_ARRAYS + 10 })
         .fill("a *a* ")
         .join("")
       const spy = vi.fn()
 
       markdownToRichText(text, {
-        notionLimits: { onError: spy }
+        notionLimits: { onError: spy },
       })
 
       expect(spy).toBeCalledTimes(1)
@@ -292,16 +292,23 @@ const hello = "hello";
     })
 
     it("should ignore unsupported elements by default", () => {
-      const text1 = "# Header first\nOther text",
-        text2 = "Other text\n# Header second"
+      const text1 = "# Header first\nOther text"
+      const text2 = "Other text\n# Header second"
 
-      const actual1 = markdownToRichText(text1),
-        actual2 = markdownToRichText(text2)
+      const actual1 = markdownToRichText(text1)
+      const actual2 = markdownToRichText(text2)
 
       const expected = [notion.richText("Other text")]
 
       expect(actual1).toStrictEqual(expected)
       expect(actual2).toStrictEqual(expected)
+    })
+
+    it("should keep origin text when there's an unsupported element and nonInline = 'origin'", () => {
+      const text = "# Header first\nOther text"
+      const actual = markdownToRichText(text, { nonInline: "origin" })
+      const expected = [notion.richText(text)]
+      expect(actual).toStrictEqual(expected)
     })
 
     it("should ignore unsupported elements when nonInline = 'ignore'", () => {

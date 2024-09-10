@@ -1,8 +1,8 @@
+import { describe, expect, it } from "vitest"
 import * as md from "../src/markdown"
 import { text } from "../src/markdown"
 import * as notion from "../src/notion"
 import { parseBlocks, parseRichText } from "../src/parser/internal"
-import { describe, expect, it } from "vitest"
 
 describe("gfm parser", () => {
   const options = { allowUnsupportedObjectType: false, strictImageUrls: true }
@@ -12,8 +12,8 @@ describe("gfm parser", () => {
         md.text("Hello "),
         md.emphasis(md.text("world "), md.strong(md.text("foo"))),
         md.text("! "),
-        md.inlineCode("code")
-      )
+        md.inlineCode("code"),
+      ),
     )
 
     const actual = parseBlocks(ast, options)
@@ -22,16 +22,16 @@ describe("gfm parser", () => {
       notion.paragraph([
         notion.richText("Hello "),
         notion.richText("world ", {
-          annotations: { italic: true }
+          annotations: { italic: true },
         }),
         notion.richText("foo", {
-          annotations: { italic: true, bold: true }
+          annotations: { italic: true, bold: true },
         }),
         notion.richText("! "),
         notion.richText("code", {
-          annotations: { code: true }
-        })
-      ])
+          annotations: { code: true },
+        }),
+      ]),
     ]
 
     expect(actual).toStrictEqual(expected)
@@ -42,8 +42,8 @@ describe("gfm parser", () => {
       md.paragraph(
         md.text("hello world "),
         md.link("https://example.com", md.text("this is a "), md.emphasis(md.text("url"))),
-        md.text(" end")
-      )
+        md.text(" end"),
+      ),
     )
 
     const actual = parseBlocks(ast, options)
@@ -52,14 +52,14 @@ describe("gfm parser", () => {
       notion.paragraph([
         notion.richText("hello world "),
         notion.richText("this is a ", {
-          url: "https://example.com"
+          url: "https://example.com",
         }),
         notion.richText("url", {
           annotations: { italic: true },
-          url: "https://example.com"
+          url: "https://example.com",
         }),
-        notion.richText(" end")
-      ])
+        notion.richText(" end"),
+      ]),
     ]
 
     expect(actual).toStrictEqual(expected)
@@ -69,7 +69,7 @@ describe("gfm parser", () => {
     const ast = md.root(
       md.paragraph(md.text("hello")),
       md.thematicBreak(),
-      md.paragraph(md.text("world"))
+      md.paragraph(md.text("world")),
     )
 
     const actual = parseBlocks(ast, options)
@@ -77,7 +77,7 @@ describe("gfm parser", () => {
     const expected = [
       notion.paragraph([notion.richText("hello")]),
       notion.divider(),
-      notion.paragraph([notion.richText("world")])
+      notion.paragraph([notion.richText("world")]),
     ]
 
     expect(actual).toStrictEqual(expected)
@@ -88,7 +88,7 @@ describe("gfm parser", () => {
       md.heading(1, md.text("heading1")),
       md.heading(2, md.text("heading2")),
       md.heading(3, md.text("heading3")),
-      md.heading(4, md.text("heading4"))
+      md.heading(4, md.text("heading4")),
     )
 
     const actual = parseBlocks(ast, options)
@@ -97,7 +97,7 @@ describe("gfm parser", () => {
       notion.headingOne([notion.richText("heading1")]),
       notion.headingTwo([notion.richText("heading2")]),
       notion.headingThree([notion.richText("heading3")]),
-      notion.headingThree([notion.richText("heading4")])
+      notion.headingThree([notion.richText("heading4")]),
     ]
 
     expect(actual).toStrictEqual(expected)
@@ -110,7 +110,7 @@ describe("gfm parser", () => {
 
     const expected = [
       notion.paragraph([notion.richText("hello")]),
-      notion.code([notion.richText("const foo = () => {}")], "plain text")
+      notion.code([notion.richText("const foo = () => {}")], "plain text"),
     ]
     expect(actual).toStrictEqual(expected)
   })
@@ -122,7 +122,7 @@ describe("gfm parser", () => {
 
     const expected = [
       notion.paragraph([notion.richText("hello")]),
-      notion.code([notion.richText("public class Foo {}")], "java")
+      notion.code([notion.richText("public class Foo {}")], "java"),
     ]
 
     expect(actual).toStrictEqual(expected)
@@ -131,14 +131,14 @@ describe("gfm parser", () => {
   it("should parse code block and set the language to plain text if it is not supported by Notion", () => {
     const ast = md.root(
       md.paragraph(md.text("hello")),
-      md.code("const foo = () => {}", "not-supported")
+      md.code("const foo = () => {}", "not-supported"),
     )
 
     const actual = parseBlocks(ast)
 
     const expected = [
       notion.paragraph([notion.richText("hello")]),
-      notion.code([notion.richText("const foo = () => {}")], "plain text")
+      notion.code([notion.richText("const foo = () => {}")], "plain text"),
     ]
 
     expect(actual).toStrictEqual(expected)
@@ -146,7 +146,7 @@ describe("gfm parser", () => {
 
   it("should parse block quote", () => {
     const ast = md.root(
-      md.blockquote(md.heading(1, md.text("hello"), md.emphasis(md.text("world"))))
+      md.blockquote(md.heading(1, md.text("hello"), md.emphasis(md.text("world")))),
     )
 
     const actual = parseBlocks(ast, options)
@@ -158,11 +158,11 @@ describe("gfm parser", () => {
           notion.headingOne([
             notion.richText("hello"),
             notion.richText("world", {
-              annotations: { italic: true }
-            })
-          ])
-        ]
-      )
+              annotations: { italic: true },
+            }),
+          ]),
+        ],
+      ),
     ]
 
     expect(actual).toStrictEqual(expected)
@@ -174,9 +174,9 @@ describe("gfm parser", () => {
       md.unorderedList(
         md.listItem(md.paragraph(md.text("a"))),
         md.listItem(md.paragraph(md.emphasis(md.text("b")))),
-        md.listItem(md.paragraph(md.strong(md.text("c"))))
+        md.listItem(md.paragraph(md.strong(md.text("c")))),
       ),
-      md.orderedList(md.listItem(md.paragraph(md.text("d"))))
+      md.orderedList(md.listItem(md.paragraph(md.text("d")))),
     )
 
     const actual = parseBlocks(ast, options)
@@ -186,7 +186,7 @@ describe("gfm parser", () => {
       notion.bulletedListItem([notion.richText("a")]),
       notion.bulletedListItem([notion.richText("b", { annotations: { italic: true } })]),
       notion.bulletedListItem([notion.richText("c", { annotations: { bold: true } })]),
-      notion.numberedListItem([notion.richText("d")])
+      notion.numberedListItem([notion.richText("d")]),
     ]
 
     expect(actual).toStrictEqual(expected)
@@ -201,13 +201,13 @@ describe("gfm parser", () => {
           md.tableCell(md.text("a")),
           md.tableCell(md.text("b")),
           md.tableCell(md.text("c")),
-          md.tableCell(md.text("d"))
-        )
+          md.tableCell(md.text("d")),
+        ),
       ),
       md.unorderedList(
         md.checkedListItem(false, md.paragraph(md.text("to do"))),
-        md.checkedListItem(true, md.paragraph(md.text("done")))
-      )
+        md.checkedListItem(true, md.paragraph(md.text("done"))),
+      ),
     )
 
     const actual = parseBlocks(ast, options)
@@ -215,13 +215,13 @@ describe("gfm parser", () => {
     const expected = [
       notion.paragraph([
         notion.richText("https://example.com", {
-          url: "https://example.com"
-        })
+          url: "https://example.com",
+        }),
       ]),
       notion.paragraph([
         notion.richText("strikethrough content", {
-          annotations: { strikethrough: true }
-        })
+          annotations: { strikethrough: true },
+        }),
       ]),
       notion.table(
         [
@@ -229,13 +229,13 @@ describe("gfm parser", () => {
             [notion.richText("a")],
             [notion.richText("b")],
             [notion.richText("c")],
-            [notion.richText("d")]
-          ])
+            [notion.richText("d")],
+          ]),
         ],
-        4
+        4,
       ),
       notion.toDo(false, [notion.richText("to do")]),
-      notion.toDo(true, [notion.richText("done")])
+      notion.toDo(true, [notion.richText("done")]),
     ]
 
     expect(actual).toStrictEqual(expected)
@@ -246,8 +246,8 @@ describe("gfm parser", () => {
       md.paragraph(
         md.text("a"),
         md.strong(md.emphasis(md.text("b")), md.text("c")),
-        md.link("https://example.com", text("d"))
-      )
+        md.link("https://example.com", text("d")),
+      ),
     )
 
     const actual = parseRichText(ast)
@@ -256,7 +256,28 @@ describe("gfm parser", () => {
       notion.richText("a"),
       notion.richText("b", { annotations: { italic: true, bold: true } }),
       notion.richText("c", { annotations: { bold: true } }),
-      notion.richText("d", { url: "https://example.com" })
+      notion.richText("d", { url: "https://example.com" }),
+    ]
+
+    expect(actual).toStrictEqual(expected)
+  })
+
+  it("should parse rich text, exclued block element", () => {
+    const ast = md.root(
+      md.paragraph(
+        md.text("a"),
+        md.strong(md.emphasis(md.text("b")), md.text("c")),
+        md.link("https://example.com", text("d")),
+      ),
+    )
+
+    const actual = parseRichText(ast)
+
+    const expected = [
+      notion.richText("a"),
+      notion.richText("b", { annotations: { italic: true, bold: true } }),
+      notion.richText("c", { annotations: { bold: true } }),
+      notion.richText("d", { url: "https://example.com" }),
     ]
 
     expect(actual).toStrictEqual(expected)

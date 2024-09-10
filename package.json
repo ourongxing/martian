@@ -1,33 +1,36 @@
 {
   "name": "@ourongxing/martian",
+  "type": "module",
   "version": "1.2.4",
+  "packageManager": "pnpm@9.10.0",
   "description": "Converts Markdown to Notion Blocks and RichText. ",
+  "author": "Richard Robinson",
+  "license": "ISC",
   "repository": "https://github.com/ourongxing/martian",
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
-  "scripts": {
-    "test": "vitest",
-    "lint": "eslint. ",
-    "precompile": "tsx scripts/languageMap.ts",
-    "build": "tsup src/index.ts --format cjs,esm --dts --minify --clean"
-  },
   "keywords": [
     "markdown",
     "notion",
     "parser",
     "gfm"
   ],
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "engines": {
     "node": ">=15"
   },
-  "author": "Richard Robinson",
-  "license": "ISC",
+  "scripts": {
+    "test": "vitest",
+    "lint": "eslint .",
+    "precompile": "tsx scripts/languageMap.ts",
+    "build": "tsup src/index.ts --format cjs,esm --dts --minify --clean"
+  },
   "dependencies": {
     "@notionhq/client": "^2.2.15",
+    "mdast-util-to-markdown": "^2.1.0",
     "remark-gfm": "^4.0.0",
     "remark-math": "^6.0.0",
     "remark-parse": "^11.0.0",
@@ -46,6 +49,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "packageManager": "pnpm@9.10.0"
+  }
 }

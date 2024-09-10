@@ -1,5 +1,6 @@
-import { richText, supportedCodeLang } from "./common"
-import { AppendBlockChildrenParameters } from "@notionhq/client/build/src/api-endpoints"
+import type { AppendBlockChildrenParameters } from "@notionhq/client/build/src/api-endpoints"
+import type { supportedCodeLang } from "./common"
+import { richText } from "./common"
 
 export type Block = AppendBlockChildrenParameters["children"][number]
 export type BlockWithoutChildren = Exclude<
@@ -16,7 +17,7 @@ export function divider(): Block {
   return {
     object: "block",
     type: "divider",
-    divider: {}
+    divider: {},
   }
 }
 
@@ -25,8 +26,8 @@ export function paragraph(text: RichText[]): Block {
     object: "block",
     type: "paragraph",
     paragraph: {
-      rich_text: text
-    }
+      rich_text: text,
+    },
   }
 }
 
@@ -36,8 +37,8 @@ export function code(text: RichText[], lang: supportedCodeLang = "plain text"): 
     type: "code",
     code: {
       rich_text: text,
-      language: lang
-    }
+      language: lang,
+    },
   }
 }
 
@@ -49,8 +50,8 @@ export function blockquote(text: RichText[] = [], children: Block[] = []): Block
       // By setting an empty rich text we prevent the "Empty quote" line from showing up at all
       rich_text: text.length ? text : [richText("")],
       // @ts-expect-error Typings are not perfect
-      children
-    }
+      children,
+    },
   }
 }
 
@@ -61,9 +62,9 @@ export function image(url: string): Block {
     image: {
       type: "external",
       external: {
-        url: url
-      }
-    }
+        url,
+      },
+    },
   }
 }
 
@@ -71,7 +72,7 @@ export function table_of_contents(): Block {
   return {
     object: "block",
     type: "table_of_contents",
-    table_of_contents: {}
+    table_of_contents: {},
   }
 }
 
@@ -80,8 +81,8 @@ export function headingOne(text: RichText[]): Block {
     object: "block",
     type: "heading_1",
     heading_1: {
-      rich_text: text
-    }
+      rich_text: text,
+    },
   }
 }
 
@@ -90,8 +91,8 @@ export function headingTwo(text: RichText[]): Block {
     object: "block",
     type: "heading_2",
     heading_2: {
-      rich_text: text
-    }
+      rich_text: text,
+    },
   }
 }
 
@@ -100,8 +101,8 @@ export function headingThree(text: RichText[]): Block {
     object: "block",
     type: "heading_3",
     heading_3: {
-      rich_text: text
-    }
+      rich_text: text,
+    },
   }
 }
 
@@ -111,8 +112,8 @@ export function bulletedListItem(text: RichText[], children: BlockWithoutChildre
     type: "bulleted_list_item",
     bulleted_list_item: {
       rich_text: text,
-      children: children.length ? children : undefined
-    }
+      children: children.length ? children : undefined,
+    },
   }
 }
 
@@ -122,24 +123,24 @@ export function numberedListItem(text: RichText[], children: BlockWithoutChildre
     type: "numbered_list_item",
     numbered_list_item: {
       rich_text: text,
-      children: children.length ? children : undefined
-    }
+      children: children.length ? children : undefined,
+    },
   }
 }
 
 export function toDo(
   checked: boolean,
   text: RichText[],
-  children: BlockWithoutChildren[] = []
+  children: BlockWithoutChildren[] = [],
 ): Block {
   return {
     object: "block",
     type: "to_do",
     to_do: {
       rich_text: text,
-      checked: checked,
-      children: children.length ? children : undefined
-    }
+      checked,
+      children: children.length ? children : undefined,
+    },
   }
 }
 
@@ -150,9 +151,9 @@ export function table(children: BlockWithoutChildren[], tableWidth: number): Blo
     table: {
       table_width: tableWidth,
       has_column_header: true,
-      // @ts-expect-error 暂时
-      children: children?.length ? children : []
-    }
+      // @ts-expect-error 暂时的
+      children: children?.length ? children : [],
+    },
   }
 }
 
@@ -161,8 +162,8 @@ export function tableRow(cells: RichText[][] = []): BlockWithoutChildren {
     object: "block",
     type: "table_row",
     table_row: {
-      cells: cells.length ? cells : []
-    }
+      cells: cells.length ? cells : [],
+    },
   }
 }
 
@@ -170,7 +171,7 @@ export function equation(value: string): Block {
   return {
     type: "equation",
     equation: {
-      expression: value
-    }
+      expression: value,
+    },
   }
 }

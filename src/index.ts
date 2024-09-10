@@ -1,10 +1,11 @@
 import { unified } from "unified"
 import markdown from "remark-parse"
-import type * as notion from "./notion"
-import { BlocksOptions, parseBlocks, parseRichText, RichTextOptions } from "./parser/internal"
-import type * as md from "./markdown"
 import gfm from "remark-gfm"
 import remarkMath from "remark-math"
+import type * as notion from "./notion"
+import type { BlocksOptions, RichTextOptions } from "./parser/internal"
+import { parseBlocks, parseRichText } from "./parser/internal"
+import type * as md from "./markdown"
 
 /**
  * Parses Markdown content into Notion Blocks.
@@ -15,7 +16,7 @@ import remarkMath from "remark-math"
 export function markdownToBlocks(
   body: string,
 
-  options?: BlocksOptions
+  options?: BlocksOptions,
 ): notion.Block[] {
   const root = unified().use(markdown).use(gfm).use(remarkMath).parse(body)
   return parseBlocks(root as unknown as md.Root, options)

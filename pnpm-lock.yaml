@@ -11,6 +11,9 @@ importers:
       '@notionhq/client':
         specifier: ^2.2.15
         version: 2.2.15
+      mdast-util-to-markdown:
+        specifier: ^2.1.0
+        version: 2.1.0
       remark-gfm:
         specifier: ^4.0.0
         version: 4.0.0

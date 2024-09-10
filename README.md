@@ -32,15 +32,15 @@ The package exports two functions, which you can import like this:
 
 ```ts
 // JS
-const {markdownToBlocks, markdownToRichText} = require('@tryfabric/martian');
 // TS
-import {markdownToBlocks, markdownToRichText} from '@tryfabric/martian';
+import { markdownToBlocks, markdownToRichText } from "@tryfabric/martian"
+const { markdownToBlocks, markdownToRichText } = require("@tryfabric/martian")
 ```
 
 Here are couple of examples with both of them:
 
 ```ts
-markdownToRichText(`**Hello _world_**`);
+markdownToRichText(`**Hello _world_**`)
 ```
 
 <details>
@@ -81,11 +81,11 @@ markdownToRichText(`**Hello _world_**`);
 
 ```ts
 markdownToBlocks(`
-hello _world_ 
-*** 
+hello _world_
+***
 ## heading2
 * [x] todo
-`);
+`)
 ```
 
 <details>
@@ -183,7 +183,7 @@ Sometimes a Markdown input would result in an output that would be rejected by t
 
 #### An item exceeds the children or character limit
 
-By default, the package will try to resolve these kind of issues by re-distributing the content to multiple blocks: when that's not possible, `martian` will truncate the output to avoid your request resulting in an error.  
+By default, the package will try to resolve these kind of issues by re-distributing the content to multiple blocks: when that's not possible, `martian` will truncate the output to avoid your request resulting in an error.
 If you want to disable this kind of behavior, you can use this option:
 
 ```ts
@@ -191,10 +191,10 @@ const options = {
   notionLimits: {
     truncate: false,
   },
-};
+}
 
-markdownToBlocks('input', options);
-markdownToRichText('input', options);
+markdownToBlocks("input", options)
+markdownToRichText("input", options)
 ```
 
 #### Manually handling errors related to Notions's limits
@@ -207,30 +207,30 @@ const options = {
     // truncate: true, // by default
     onError: (err: Error) => {
       // Something has appened!
-      console.error(err);
+      console.error(err)
     },
   },
-};
+}
 
-markdownToBlocks('input', options);
-markdownToRichText('input', options);
+markdownToBlocks("input", options)
+markdownToRichText("input", options)
 ```
 
 ### Working with images
 
-If an image as an invalid URL, the Notion API will reject the whole request: `martian` prevents this issue by converting images with invalid links into text, so that request are successfull and you can fix the links later.  
+If an image as an invalid URL, the Notion API will reject the whole request: `martian` prevents this issue by converting images with invalid links into text, so that request are successfull and you can fix the links later.
 If you want to disable this kind of behavior, you can use this option:
 
 ```ts
 const options = {
   strictImageUrls: false,
-};
+}
 ```
 
 Default behavior:
 
 ```ts
-markdownToBlocks('![](InvalidURL)');
+markdownToBlocks("![](InvalidURL)")
 ```
 
 <details>
@@ -266,9 +266,9 @@ markdownToBlocks('![](InvalidURL)');
 `strictImageUrls` disabled:
 
 ```ts
-markdownToBlocks('![](InvalidURL)', {
+markdownToBlocks("![](InvalidURL)", {
   strictImageUrls: false,
-});
+})
 ```
 
 <details>
@@ -291,15 +291,15 @@ markdownToBlocks('![](InvalidURL)', {
 
 ### Non-inline elements when parsing rich text
 
-By default, if the text provided to `markdownToRichText` would result in one or more non-inline elements, the package will ignore those and only parse paragraphs.  
+By default, if the text provided to `markdownToRichText` would result in one or more non-inline elements, the package will ignore those and only parse paragraphs.
 You can make the package throw an error when a non-inline element is detected by setting the `nonInline` option to `'throw'`.
 
 Default behavior:
 
 ```ts
-markdownToRichText('# Header\nAbc', {
+markdownToRichText("# Header\nAbc", {
   // nonInline: 'ignore', // Default
-});
+})
 ```
 
 <details>
@@ -325,24 +325,21 @@ markdownToRichText('# Header\nAbc', {
 Throw an error:
 
 ```ts
-markdownToRichText('# Header\nAbc', {
-  nonInline: 'throw',
-});
+markdownToRichText("# Header\nAbc", {
+  nonInline: "throw",
+})
 ```
 
 <details>
 <summary>Result</summary>
 <pre>
 Error: Unsupported markdown element: {"type":"heading","depth":1,"children":[{"type":"text","value":"Header","position":{"start":{"line":1,"column":3,
-"offset":2},"end":{"line":1,"column":9,"offset":8}}}],"position":{"start":{"line":1,"column":1,"offset":0},"end":{"line":1,"column":9,"offset":8}}}  
+"offset":2},"end":{"line":1,"column":9,"offset":8}}}],"position":{"start":{"line":1,"column":1,"offset":0},"end":{"line":1,"column":9,"offset":8}}}
 </pre>
 </details>
-
-
 
 ---
 
 Built with 💙 by the team behind [Fabric](https://tryfabric.com).
 
 <img src="https://static.scarf.sh/a.png?x-pxid=79ae4e0a-7e48-4965-8a83-808c009aa47a" />
-

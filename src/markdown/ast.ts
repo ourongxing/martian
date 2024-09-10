@@ -23,77 +23,77 @@ import type {
   TableContent,
   Text,
   ThematicBreak,
-} from './types';
+} from "./types"
 
 export function text(value: string): Text {
   return {
-    type: 'text',
-    value: value,
-  };
+    type: "text",
+    value,
+  }
 }
 
 export function image(url: string, alt: string, title: string): Image {
   return {
-    type: 'image',
-    url: url,
-    title: title,
-  };
+    type: "image",
+    url,
+    title,
+  }
 }
 
 export function emphasis(...children: PhrasingContent[]): Emphasis {
   return {
-    type: 'emphasis',
-    children: children,
-  };
+    type: "emphasis",
+    children,
+  }
 }
 
 export function strong(...children: PhrasingContent[]): Strong {
   return {
-    type: 'strong',
-    children: children,
-  };
+    type: "strong",
+    children,
+  }
 }
 
 export function inlineCode(value: string): InlineCode {
   return {
-    type: 'inlineCode',
-    value: value,
-  };
+    type: "inlineCode",
+    value,
+  }
 }
 
 export function inlineMath(value: string): InlineMath {
   return {
-    type: 'inlineMath',
+    type: "inlineMath",
     value,
-  };
+  }
 }
 
 export function paragraph(...children: PhrasingContent[]): Paragraph {
   return {
-    type: 'paragraph',
-    children: children,
-  };
+    type: "paragraph",
+    children,
+  }
 }
 
 export function root(...children: FlowContent[]): Root {
   return {
-    type: 'root',
-    children: children,
-  };
+    type: "root",
+    children,
+  }
 }
 
 export function link(url: string, ...children: StaticPhrasingContent[]): Link {
   return {
-    type: 'link',
-    children: children,
-    url: url,
-  };
+    type: "link",
+    children,
+    url,
+  }
 }
 
 export function thematicBreak(): ThematicBreak {
   return {
-    type: 'thematicBreak',
-  };
+    type: "thematicBreak",
+  }
 }
 
 export function heading(
@@ -101,39 +101,39 @@ export function heading(
   ...children: PhrasingContent[]
 ): Heading {
   return {
-    type: 'heading',
-    depth: depth,
-    children: children,
-  };
+    type: "heading",
+    depth,
+    children,
+  }
 }
 
 export function code(value: string, lang: string | undefined): Code {
   return {
-    type: 'code',
-    lang: lang,
-    value: value,
-  };
+    type: "code",
+    lang,
+    value,
+  }
 }
 
 export function math(value: string): Math {
   return {
-    type: 'math',
+    type: "math",
     value,
-  };
+  }
 }
 
 export function blockquote(...children: FlowContent[]): Blockquote {
   return {
-    type: 'blockquote',
-    children: children,
-  };
+    type: "blockquote",
+    children,
+  }
 }
 
 export function listItem(...children: FlowContent[]): ListItem {
   return {
-    type: 'listitem',
-    children: children,
-  };
+    type: "listitem",
+    children,
+  }
 }
 
 export function checkedListItem(
@@ -141,53 +141,53 @@ export function checkedListItem(
   ...children: FlowContent[]
 ): ListItem {
   return {
-    type: 'listitem',
-    checked: checked,
-    children: children,
-  };
+    type: "listitem",
+    checked,
+    children,
+  }
 }
 
 export function unorderedList(...children: ListContent[]): List {
   return {
-    type: 'list',
-    children: children,
+    type: "list",
+    children,
     ordered: false,
-  };
+  }
 }
 
 export function orderedList(...children: ListContent[]): List {
   return {
-    type: 'list',
-    children: children,
+    type: "list",
+    children,
     start: 0,
     ordered: true,
-  };
+  }
 }
 
 export function strikethrough(...children: PhrasingContent[]): Delete {
   return {
-    type: 'delete',
-    children: children,
-  };
+    type: "delete",
+    children,
+  }
 }
 
 export function table(...children: TableContent[]): Table {
   return {
-    type: 'table',
-    children: children,
-  };
+    type: "table",
+    children,
+  }
 }
 
 export function tableRow(...children: RowContent[]): TableContent {
   return {
-    type: 'tableRow',
-    children: children,
-  };
+    type: "tableRow",
+    children,
+  }
 }
 
 export function tableCell(...children: PhrasingContent[]): RowContent {
   return {
-    type: 'tableCell',
-    children: children,
-  };
+    type: "tableCell",
+    children,
+  }
 }
